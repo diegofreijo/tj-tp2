@@ -24,8 +24,7 @@ namespace TP2.GaletteToxique
 		/// <summary>
 		/// Crea una torta nueva con todas las casillas llenas
 		/// </summary>
-		public Torta(int filas, int columnas)
-			: base(filas)
+		public Torta(int filas, int columnas) : base(filas)
 		{
 			this.filas = filas;
 			this.columnas = columnas;
@@ -68,7 +67,7 @@ namespace TP2.GaletteToxique
 			}
 		}
 
-		public string ToString()
+        public override string ToString()
 		{
 			string salida = "";
 
@@ -84,5 +83,34 @@ namespace TP2.GaletteToxique
 			return salida;
 		}
 
-	}
+        public bool QuedaPorcionComible()
+        {
+            for (int fila = 0; fila < (this.Filas - 1); ++fila)
+            {
+                for (int col = 0; col < (this.Columnas - 1); ++col)
+                {
+                    //Verifico que sea comestible el bocado de 2x2, donde torta[fila][col] es la porcion de arriba a la izquierda.
+                    if ((this[fila][col] != Porcion.Venenosa && this[fila][col + 1] != Porcion.Venenosa &&
+                        this[fila + 1][col] != Porcion.Venenosa && this[fila + 1][col + 1] != Porcion.Venenosa) &&
+                        (this[fila][col] == Porcion.Llena || this[fila][col + 1] == Porcion.Llena ||
+                        this[fila + 1][col] == Porcion.Llena || this[fila + 1][col + 1] == Porcion.Llena))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        internal void CopiarContenido(Torta torta)
+        {
+            for (int i = 0; i < this.filas; ++i)
+            {
+                for (int j = 0; j < this.columnas; ++j)
+                {
+                    this[i][j] = torta[i][j];
+                }
+            }
+        }
+    }
 }

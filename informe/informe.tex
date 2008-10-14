@@ -1,0 +1,128 @@
+\documentclass[spanish, a4paper, 10pt, titlepage]{article}
+\author{Freijo - Giusto}
+
+% Incluyo los paquetes y configuraciones
+\input{config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%   Inicio del documento
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Caratula y tabla de contenidos
+\input{caratula.tex}
+\tableofcontents
+\clearpage
+
+% ------------------------------------------------------
+% Secciones
+% ------------------------------------------------------
+
+% Parte 1
+\section{Parte 1: Modo An'alisis}
+
+El \italica{Galette Toxique} es un juego de dos jugadores. Su principal caracter'istica es el ser un juego imparcial, ya que ambos jugadores gozan de las mismas opciones para realizar sus jugadas.
+
+\subsection{Algoritmo del C'alculo del valor del juego}
+El algoritmo que se utiliza para hallar el valor del juego toma la torta del archivo \italica{GT.in}, pero se utiliza una funci'on auxiliar ya que para saber cu'al es dicho valor es necesario saber a qui'en pertenece el turno. Esta funci'on toma como turno inicial el 1 y es el siguiente:
+
+\begin{verbatim}
+Valorar(torta)
+{
+Para cada juego nuevo j que se genera al comer una pocion
+    CalcularValorDelJuego(j, 1)
+
+Retornar MEX de los valores obtenidos de las posibles jugadas
+}
+\end{verbatim}
+
+
+
+\begin{verbatim}
+CalcularValorDelJuego(torta, 1)
+{
+Para cada juego nuevo j que se genera al comer una pocion
+    Calcular el valor de j mediante un llamado recursivo usando como turno el siguiente del actual
+
+Hacer MEX de los valores obtenidos de las posibles jugadas
+
+En caso que no hubiera una posible jugada
+    Si estamos en el turno del jugador uno entonces
+        el valor para ese tablero es cero
+    Caso contrario
+        el valor es 1
+
+Retornar los valores de todas las jugadas posibles
+}
+\end{verbatim}
+
+\subsection{Complejidad algor'itmica y algunos valores}
+
+Cuando en el algoritmo se utiliza el 1 y se habla de \italica{valor del juego} en realidad nos referimos a *.
+
+Notar que algor'itmicamente es muy simple pero tiene una complejidad temporal factorial, ya que realiza la exploraci'on completa del 'arbol de jugadas.
+
+Dada una cantidad \italica{n} de posibles jugadas, el 'arbol tendr'ia \italica{n} nodos colgando de la ra'iz. Luego, de cada uno de 'estos nodos, colgar'ian \italica{n-1} nodos m'as y as'i hasta llegar a las hojas. Teniendo aproximadamente \italica{n!} hojas. Finalmente se explorar'ian aproximadamente:
+
+$$\sum_{i=1}^{n-1}{n!/i}$$
+
+Valores obtenidos en las diferentes pruebas y su interpretaci'on:
+\begin{itemize}
+\item 0, el que juega primero pierde independientemente de qu'e bocado coma;
+\item * (1), el que juega primero gana independientemente de qu'e bocado coma;
+\item *2 (2), el desenlace del juego no est'a definido, cualquiera de los dos jugadore puede ganar. Notar que no indica posibles estrategias ganadoras, s'olo que el final es abierto.
+
+\end{itemize}
+
+\subsection{Posibles optimizaciones}
+
+Dada la alta complejidad anteriormente mencionada, podr'ian realizarse alguna de las siguientes optimizaciones para disminuir el tiempo de procesamiento:
+
+\begin{itemize}
+\item Analizar por separado $"$cachos$"$ de torta disjuntas y luego juntar los resultados mediante la \italica{Suma-Nim} de los resultados.
+\item Buscar igualdades o simetr'ias. Dadas dos partes de la misma torta que son disjuntas y adem'as iguales o sim'etricas, s'olo se calcular'ia el valor de una sola de ellas.
+\end{itemize}
+
+
+\clearpage
+
+% Parte 2
+\section{Parte 2: Modo Juego}
+
+\subsection{Algoritmo de elecci'on de la jugada}
+
+Este algoritmo tambi'en es muy sencillo, se muestra a continuaci'on:
+
+\begin{verbatim}
+Jugar(torta)
+{
+    Para cada juego nuevo j que se genera al comer una pocion
+        Calcular la cantidad de hojas que son victoria
+    Quedarse con el que tiene la relacion #Victorias/#Hojas mas alta
+    Retornar la torta con porcion correspondiente consumida
+
+    En caso que no hubiera una posible jugada
+        Mostrar por pantalla "No queda jugada posible :("
+}
+\end{verbatim}
+
+Este algoritmo al igual que el anterior tambi'en tiene complejidad factorial, ya que se necesita generar todo el 'arbol y llegar hasta las hojas para poder hallar la cantidad total de hojas y de 'estas la cantidad que son victoria, es decir, las que tienen valor 1.
+
+\subsection{Posibles Optimizaciones}
+
+Dada la alta complejidad factorial del algoritmo, se plantea la siguiente optimizaci'on para disminuir el tiempo de procesamiento:
+
+\begin{itemize}
+\item Analizar por separado $"$cachos$"$ de torta disjuntas y luego juntar los valores en una sola lista.
+\item Buscar igualdades o simetr'ias. Dadas dos partes de la misma torta que son disjuntas y adem'as iguales o sim'etricas, s'olo se calcular'ian las cantidades de una sola de ellas.
+\item Generar solamente una vez el 'arbol de jugadas, asociando a cada uno los valores para \italica{cantidad de victorias} y \italica{cantidad total de hojas}. Esto se har'ia al comienzo y as'i cuando se deba elegir solo hay que recorrer ir bajando de a un nivel por turno y no recorrer todo el 'arbol cada vez que se tiene que jugar. Actualizar el 'arbol despu'es de que el otro jugador realiz'o su jugada, no es un problema ya que consiste en solamente elegir la alguno de los juegos siguientes al actual.
+\end{itemize}
+
+
+\clearpage
+
+
+
+\end{document}

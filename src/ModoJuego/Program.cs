@@ -21,7 +21,7 @@ namespace TP2.ModoJuego
 			// Seteo al jugador
 			Jugador jugador = new Naive();
 
-			// Comienzo el juego
+            // Comienzo el juego
 			bool termino = false;
 			while (!termino)
 			{
@@ -39,7 +39,7 @@ namespace TP2.ModoJuego
 				#endregion
 
 				// Hago que el jugador juege
-				jugador.Jugar(ref torta);
+				termino = jugador.Jugar(ref torta);
 
 				#region Log
 				Console.ForegroundColor = ConsoleColor.DarkMagenta;
@@ -48,11 +48,19 @@ namespace TP2.ModoJuego
 				Console.WriteLine(torta.ToString());
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("=================");
+                Console.ForegroundColor = ConsoleColor.White;
 				#endregion
 
 				// Guardo la jugada
 				ArchivoSalida salida = new ArchivoSalida(ruta_archivos + "\\" + archivo, torta, oponente_numero);
-			}
-		}
+            }
+            #region LogFinal
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("***********************************");
+            Console.WriteLine("No queda jugada posible :(");
+            Console.WriteLine("***********************************");
+            Console.ForegroundColor = ConsoleColor.White;
+            #endregion
+        }
 	}
 }

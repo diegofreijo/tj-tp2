@@ -7,8 +7,8 @@ namespace TP2.GaletteToxique
 {
 	public abstract class Jugador
 	{
-		public abstract void Jugar(ref Torta torta);
+		public abstract bool Jugar(ref Torta torta);
 
 		public abstract int Valorar(Torta torta);
-	}
+    }
 }
