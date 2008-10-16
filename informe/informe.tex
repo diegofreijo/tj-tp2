@@ -120,6 +120,22 @@ Dada la alta complejidad factorial del algoritmo, se plantea la siguiente optimi
 \item Generar solamente una vez el 'arbol de jugadas, asociando a cada uno los valores para \italica{cantidad de victorias} y \italica{cantidad total de hojas}. Esto se har'ia al comienzo y as'i cuando se deba elegir solo hay que recorrer ir bajando de a un nivel por turno y no recorrer todo el 'arbol cada vez que se tiene que jugar. Actualizar el 'arbol despu'es de que el otro jugador realiz'o su jugada, no es un problema ya que consiste en solamente elegir la alguno de los juegos siguientes al actual.
 \end{itemize}
 
+\section{Modo de Uso}
+
+La soluci'on al tp esta separada en dos archivos, \negrita{ModoAnalisis.exe} y \negrita{ModoJuego.exe}.
+
+Para poder ejecutar correctamente cada uno:
+
+\begin{itemize}
+\item El archivo \negrita{GaletteToxique.dll} debe estar en el mismo directorio que el \italica{.exe} que se quiere ejecutar. 
+\item Los archivos \italica{GT.in} deben estar en una carpeta llamada \negrita{modo\_analisis} y los archivos \italica{GT.txt} en otra llamada \negrita{modo\_juego}, ambas 4 niveles m'as arriba que el \italica{.exe}. De manera m'as simple podr'ia guardarse el ejecutable y la carpeta en \negrita{C:} que tampoco tendr'ian problemas.
+
+Por 'ultimo \negrita{ModoJuego.exe} toma dos par'ametros, el primero es el n'umero de jugador propio y el segundo el n'umero de jugador del oponente.
+
+\end{itemize}
+
+
+
 
 \clearpage
 
